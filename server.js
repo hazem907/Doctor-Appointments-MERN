@@ -20,6 +20,8 @@ app.use('/users',User)
 app.use('/doctors',Doctor)
 app.use('/appointments',Appointment)
 app.use('/departments',Department)
+app.use("/uploads", express.static("uploads"));
+
 connectDB()
 const PORT = process.env.PORT ||3000
 app.listen(PORT,()=>{

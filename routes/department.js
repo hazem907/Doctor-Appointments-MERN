@@ -36,6 +36,36 @@ router.get("/allDepartments", async(req,res)=>{
         res.status(500).json({ message: "Failed to fetch departments" });
     }
 })
+router.delete("/:id", async(req,res)=>{
+    try {
+        const department = await Department.findByIdAndDelete(req.params.id);
+        
+        if (!department) {
+            return res.status(404).json({ message: "Department not found" });
+        }
+
+        res.json({ 
+            message: "Department deleted successfully", 
+            department 
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to delete department" });
+    }
+});
+
+router.get('/count',async(req,res)=>{
+  try{
+    const count = await Department.countDocuments()
+    res.json({count})
+
+  }catch(error){
+    if(error){
+      console.error(error)
+      return res.status(500).send({message:"can not get count"})
+    }
+
+  }
+})
 
 
 
